@@ -74,61 +74,61 @@
 >- This will add organizations to the database. Users can create organizations with a few details about them but most importantly can add other app users to their organization to access a shared list of recipes. This is what makes the recipe CRUD functionality the most useful, but they can also add other recipes they found through search to the list of recipes.
 
 ## Tasks
->1. write web scraper - 1hr
->2. write map and reduce scripts for hadoop - 1hr
->3. write inverted index server with sample index - 1hr
->4. create a sample inverted index and test server - 1hr
->5. create recipe database ddl and insert sample data - 1hr
->6. write csb -> sql converter - 1hr
->7. create recipe database server and add required dependencies - 1hr
->8. add an API route for search database by query, this makes a request to the index API - 1hr
->9. repository layer find by id, used by search route to retrieve recipes by ids returned from index API - 1hr
->10. test repository and domain layers for search - 1hr
->11. add server side dynamic pages for searching - 4hrs
->12. add users to the database - 1hr
->13. implement spring security as we did in class - 2hrs
->14. test users repository layer - 2hrs
->15. create a React app for the frontend that contains the search pages - 1hr
->16. add functionality to React app to allow users to create accounts and sign in - 4hrs
->17. add many to many relationship between users and recipes in the database - 1hr
->18. test user-recipe repository layer - 1hr
->19. create sidebar and saved recipes in react app - 1hr
->20. create API functionality for users to create a user-recipe relationship in database - 2hrs
->21. test user-recipe domain layer - 1hr
->22. create functionality for users to save recipes in frontend - 1hr
->23. create recipe component to display in saved recipes component - 1hr
->24. add a discover tab to sidebar - 1hr
->25. research recommender algorithms - 4hrs
->26. implement recommender algorithm in the backend - 1hr
->27. test recommender in domain layer - 1hr
->28. implement api fetches to discover route in backend in frontend - 1hr
->29. implement recipes being populated in discover tab in frontend - 1hr
->30. create recipe repository - 1hr
->31. create recipe domain - 1hr
->32. create recipe repository and domain testing - 1hr
->33. create recipe controller - 1hr
->34. create recipe frontend - 1hr
->35. view recipes repository and domain - 1hr
->36. view recipes by user id
->37. view recipes controller and frontend - 2hr
->38. test view recipes domain and repository - 1hr
->39. update recipe repository - 1hr
->40. update recipe domain - 1hr
->41. test update recipe repository and domain layer - 1hr
->42. update recipe controller - 1hr
->43. update recipe frontend - 1hr
->44. delete recipe repository - 1hr
->45. delete recipe domain - 1hr
->46. test delete recipe repository and domain layer - 1hr
->47. delete recipe controller - 1hr
->48. delete recipe frontend - 1hr
->49. create organization repository - 1hr
->50. create organization domain - 1hr
->51. create organization repository and domain testing - 2hr
->52. create organization controller - 1hr
->53. create organization frontend - 1hr
->54. add users to organization repository - 1hr
->55. add users to organization domain - 1hr
->56. add users to organization repository and domain testing - 2hr
->57. add users to organization controller - 1hr
->58. add users to organization frontend - 1hr
+>- [x] write web scraper - 1hr
+>- [x] write map and reduce scripts for hadoop - 1hr
+>- [ ] write inverted index server with sample index - 1hr
+>- [x] create a sample inverted index and test server - 1hr
+>- [ ] create recipe database ddl and insert sample data - 1hr
+>- [x] write csb -> sql converter - 1hr
+>- [ ] create recipe database server and add required dependencies - 1hr
+>- [ ] add an API route for search database by query, this makes a request to the index API - 1hr
+>- [ ] repository layer find by id, used by search route to retrieve recipes by ids returned from index API - 1hr
+>- [ ] test repository and domain layers for search - 1hr
+>- [ ] add server side dynamic pages for searching - 4hrs
+>- [ ] add users to the database - 1hr
+>- [ ] implement spring security as we did in class - 2hrs
+>- [ ] test users repository layer - 2hrs
+>- [ ] create a React app for the frontend that contains the search pages - 1hr
+>- [ ] add functionality to React app to allow users to create accounts and sign in - 4hrs
+>- [ ] add many to many relationship between users and recipes in the database - 1hr
+>- [ ] test user-recipe repository layer - 1hr
+>- [ ] create sidebar and saved recipes in react app - 1hr
+>- [ ] create API functionality for users to create a user-recipe relationship in database - 2hrs
+>- [ ] test user-recipe domain layer - 1hr
+>- [ ] create functionality for users to save recipes in frontend - 1hr
+>- [ ] create recipe component to display in saved recipes component - 1hr
+>- [ ] add a discover tab to sidebar - 1hr
+>- [ ] research recommender algorithms - 4hrs
+>- [ ] implement recommender algorithm in the backend - 1hr
+>- [ ] test recommender in domain layer - 1hr
+>- [ ] implement api fetches to discover route in backend in frontend - 1hr
+>- [ ] implement recipes being populated in discover tab in frontend - 1hr
+>- [ ] create recipe repository - 1hr
+>- [ ] create recipe domain - 1hr
+>- [ ] create recipe repository and domain testing - 1hr
+>- [ ] create recipe controller - 1hr
+>- [ ] create recipe frontend - 1hr
+>- [ ] view recipes repository and domain - 1hr
+>- [ ] view recipes by user id
+>- [ ] view recipes controller and frontend - 2hr
+>- [ ] test view recipes domain and repository - 1hr
+>- [ ] update recipe repository - 1hr
+>- [ ] update recipe domain - 1hr
+>- [ ] test update recipe repository and domain layer - 1hr
+>- [ ] update recipe controller - 1hr
+>- [ ] update recipe frontend - 1hr
+>- [ ] delete recipe repository - 1hr
+>- [ ] delete recipe domain - 1hr
+>- [ ] test delete recipe repository and domain layer - 1hr
+>- [ ] delete recipe controller - 1hr
+>- [ ] delete recipe frontend - 1hr
+>- [ ] create organization repository - 1hr
+>- [ ] create organization domain - 1hr
+>- [ ] create organization repository and domain testing - 2hr
+>- [ ] create organization controller - 1hr
+>- [ ] create organization frontend - 1hr
+>- [ ] add users to organization repository - 1hr
+>- [ ] add users to organization domain - 1hr
+>- [ ] add users to organization repository and domain testing - 2hr
+>- [ ] add users to organization controller - 1hr
+>- [ ] add users to organization frontend - 1hr
