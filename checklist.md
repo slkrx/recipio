@@ -76,17 +76,17 @@
 ## Tasks
 >- [x] write web scraper - 1hr
 >- [x] write map and reduce scripts for hadoop - 1hr
->- [ ] write inverted index server with sample index - 1hr
+>- [x] write inverted index server with sample index - 1hr
 >- [x] create a sample inverted index and test server - 1hr
->- [ ] create recipe database ddl and insert sample data - 1hr
+>- [x] create recipe database ddl and insert sample data - 1hr
 >- [x] write csb -> sql converter - 1hr
->- [ ] create recipe database server and add required dependencies - 1hr
->- [ ] add an API route for search database by query, this makes a request to the index API - 1hr
->- [ ] repository layer find by id, used by search route to retrieve recipes by ids returned from index API - 1hr
->- [ ] test repository and domain layers for search - 1hr
->- [ ] add server side dynamic pages for searching - 4hrs
->- [ ] add users to the database - 1hr
->- [ ] implement spring security as we did in class - 2hrs
+>- [x] create recipe database server and add required dependencies - 1hr
+>- [x] add an API route for search database by query, this makes a request to the index API - 1hr
+>- [x] repository layer find by id, used by search route to retrieve recipes by ids returned from index API - 1hr
+>- [x] test repository and domain layers for search - 1hr
+>- [x] add server side dynamic pages for searching - 4hrs
+>- [x] add users to the database - 1hr
+>- [x] implement spring security as we did in class - 2hrs
 >- [ ] test users repository layer - 2hrs
 >- [ ] create a React app for the frontend that contains the search pages - 1hr
 >- [ ] add functionality to React app to allow users to create accounts and sign in - 4hrs
