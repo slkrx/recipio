@@ -1,6 +1,9 @@
 package learn.backendserver;
 
+import learn.backendserver.models.AppUser;
 import learn.backendserver.models.Recipe;
+
+import java.util.List;
 
 public class TestHelpers {
 
@@ -29,5 +32,12 @@ public class TestHelpers {
             new String[] {"1 turkey carcass", "3 onions, coarsely chopped", "1 pound carrots, coarsely chopped", "1 bunch celery, coarsely chopped", "1 green bell pepper, coarsely chopped", "3 cloves garlic", "4 cubes chicken bouillon", "1 tablespoon whole black peppercorns, or to taste", "3 bay leaves", "water to cover"},
             new String[] {"Combine turkey carcass, onions, carrots, celery, green bell pepper, garlic, chicken bouillon cubes, peppercorns, and bay leaves in a stockpot; pour in enough water to cover. Bring mixture to a boil, reduce heat, and simmer until flavors blend, about 1 hour. Remove stockpot from heat and let sit for 15 minutes.", "Strain stock through a cheesecloth and discard solids.", "Cook’s Note", "I keep ends of root veggies and tops of bell peppers to use in meat stock when I make soup from leftover Sunday roast. Leaving the skin on the onion will darken stock and add more taste. I use roasted peppers and whole roasted garlic."},
             "https://www.allrecipes.com/recipe/235243/turkey-stock/"
+    );
+    public static AppUser USER1 = new AppUser(
+            1,
+            "john@smith.com",
+            "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
+            true,
+            List.of()
     );
 }

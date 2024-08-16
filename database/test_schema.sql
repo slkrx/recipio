@@ -18,9 +18,56 @@ CREATE TABLE recipe (
     url         VARCHAR(5000)
 );
 
+CREATE TABLE app_user (
+    app_user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(2048) NOT NULL,
+    enabled BIT NOT NULL DEFAULT(1)
+);
+
+CREATE TABLE app_user_recipe_saved (
+    app_user_id INT,
+    recipe_id INT UNSIGNED,
+    saved_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_app_user_recipe_saved_app_user_id
+        FOREIGN KEY (app_user_id)
+        REFERENCES app_user(app_user_id),
+    CONSTRAINT fk_app_user_recipe_saved_recipe_id
+        FOREIGN KEY (recipe_id)
+        REFERENCES recipe(id)
+);
+
+CREATE TABLE app_role (
+    app_role_id INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE app_user_role (
+    app_user_id INT NOT NULL,
+    app_role_id INT NOT NULL,
+    CONSTRAINT pk_app_user_role
+        PRIMARY KEY (app_user_id, app_role_id),
+    CONSTRAINT fk_app_user_role_user_id
+        FOREIGN KEY (app_user_id)
+        REFERENCES app_user(app_user_id),
+    CONSTRAINT fk_app_user_role_role_id
+        FOREIGN KEY (app_role_id)
+        REFERENCES app_role(app_role_id)
+);
+
+INSERT INTO app_role (`name`) VALUES
+    ('USER'),
+    ('ADMIN');
+
 DELIMITER //
 CREATE PROCEDURE set_known_good_state()
 BEGIN
+    DELETE FROM app_user_role;
+    ALTER TABLE app_user_role AUTO_INCREMENT=1;
+    DELETE FROM app_user_recipe_saved;
+    ALTER TABLE app_user_recipe_saved AUTO_INCREMENT=1;
+    DELETE FROM app_user;
+    ALTER TABLE app_user AUTO_INCREMENT=1;
     DELETE FROM recipe;
     ALTER TABLE recipe AUTO_INCREMENT=1;
 
@@ -59,6 +106,23 @@ BEGIN
         "1 turkey carcass|3 onions, coarsely chopped|1 pound carrots, coarsely chopped|1 bunch celery, coarsely chopped|1 green bell pepper, coarsely chopped|3 cloves garlic|4 cubes chicken bouillon|1 tablespoon whole black peppercorns, or to taste|3 bay leaves|water to cover",
         "Combine turkey carcass, onions, carrots, celery, green bell pepper, garlic, chicken bouillon cubes, peppercorns, and bay leaves in a stockpot; pour in enough water to cover. Bring mixture to a boil, reduce heat, and simmer until flavors blend, about 1 hour. Remove stockpot from heat and let sit for 15 minutes.|Strain stock through a cheesecloth and discard solids.|Cook’s Note|I keep ends of root veggies and tops of bell peppers to use in meat stock when I make soup from leftover Sunday roast. Leaving the skin on the onion will darken stock and add more taste. I use roasted peppers and whole roasted garlic.",
         "https://www.allrecipes.com/recipe/235243/turkey-stock/");
+
+
+    -- passwords are set to "P@ssw0rd!"
+    INSERT INTO app_user (username, password_hash, enabled)
+        VALUES
+        ('john@smith.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
+        ('sally@jones.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1);
+
+    INSERT INTO app_user_role
+        VALUES
+        (1, 2),
+        (2, 1);
+    
+    INSERT INTO app_user_recipe_saved (app_user_id, recipe_id)
+        VALUES
+        (1, 2571),
+        (1, 1);
 
 END//
 DELIMITER ;

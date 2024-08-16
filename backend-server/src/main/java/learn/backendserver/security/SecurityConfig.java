@@ -29,13 +29,17 @@ public class SecurityConfig {
         // the order of the antMatchers() method calls is important
         // as they're evaluated in the order that they're added
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.GET,
-                        "/").permitAll()
+                .requestMatchers(HttpMethod.GET, "/").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/recipes/search**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/recipes/save**").permitAll()
                 .requestMatchers(HttpMethod.POST,
                         "/security/authenticate").permitAll()
                 .requestMatchers(HttpMethod.POST,
+                        "/security/register").permitAll()
+                .requestMatchers(HttpMethod.POST,
                         "/security/refresh").authenticated()
                 // if we get to this point, let's deny all requests
+                .requestMatchers("/dist/**").permitAll()
                 .requestMatchers("/**").denyAll());
 
 //        http.addFilter(new JwtRequestFilter(authenticationManager(authConfig), jwtConverter));

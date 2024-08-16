@@ -88,10 +88,10 @@
 >- [x] add users to the database - 1hr
 >- [x] implement spring security as we did in class - 2hrs
 >- [ ] test users repository layer - 2hrs
->- [ ] create a React app for the frontend that contains the search pages - 1hr
->- [ ] add functionality to React app to allow users to create accounts and sign in - 4hrs
->- [ ] add many to many relationship between users and recipes in the database - 1hr
->- [ ] test user-recipe repository layer - 1hr
+>- [x] create a React app for the frontend that contains the search pages - 1hr
+>- [x] add functionality to React app to allow users to create accounts and sign in - 4hrs
+>- [x] add many to many relationship between users and recipes in the database - 1hr
+>- [x] test user-recipe repository layer - 1hr
 >- [ ] create sidebar and saved recipes in react app - 1hr
 >- [ ] create API functionality for users to create a user-recipe relationship in database - 2hrs
 >- [ ] test user-recipe domain layer - 1hr
@@ -132,3 +132,9 @@
 >- [ ] add users to organization repository and domain testing - 2hr
 >- [ ] add users to organization controller - 1hr
 >- [ ] add users to organization frontend - 1hr
+
+>## Todo
+>- [ ] server sends size of query list so i can do pagination properly
+>- [ ] add query to url params 
+>- [ ] make the recipe page
+>- [ ] sort users saved recipes by timestamp
