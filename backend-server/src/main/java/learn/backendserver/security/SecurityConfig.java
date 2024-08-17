@@ -31,7 +31,13 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET, "/").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/recipes/search**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/recipes/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/recipes/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/recipes/save**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/app-user-recipe-saved/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/app-user-recipe-saved/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/app-user-recipe-created/**").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/api/app-user-recipe-saved/**").permitAll()
                 .requestMatchers(HttpMethod.POST,
                         "/security/authenticate").permitAll()
                 .requestMatchers(HttpMethod.POST,

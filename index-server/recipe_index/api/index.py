@@ -55,6 +55,6 @@ def get_index():
         
     return(
         flask.make_response(
-            flask.jsonify({"docs": docs[10*(p-1):10*p]})
+            flask.jsonify({"docs": docs[10*(p-1):10*p], "length": len(docs)})
         )
     )

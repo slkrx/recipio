@@ -92,22 +92,22 @@
 >- [x] add functionality to React app to allow users to create accounts and sign in - 4hrs
 >- [x] add many to many relationship between users and recipes in the database - 1hr
 >- [x] test user-recipe repository layer - 1hr
->- [ ] create sidebar and saved recipes in react app - 1hr
->- [ ] create API functionality for users to create a user-recipe relationship in database - 2hrs
+>- [x] create sidebar and saved recipes in react app - 1hr
+>- [x] create API functionality for users to create a user-recipe relationship in database - 2hrs
 >- [ ] test user-recipe domain layer - 1hr
->- [ ] create functionality for users to save recipes in frontend - 1hr
->- [ ] create recipe component to display in saved recipes component - 1hr
+>- [x] create functionality for users to save recipes in frontend - 1hr
+>- [x] create recipe component to display in saved recipes component - 1hr
 >- [ ] add a discover tab to sidebar - 1hr
 >- [ ] research recommender algorithms - 4hrs
 >- [ ] implement recommender algorithm in the backend - 1hr
 >- [ ] test recommender in domain layer - 1hr
 >- [ ] implement api fetches to discover route in backend in frontend - 1hr
 >- [ ] implement recipes being populated in discover tab in frontend - 1hr
->- [ ] create recipe repository - 1hr
->- [ ] create recipe domain - 1hr
+>- [x] create recipe repository - 1hr
+>- [x] create recipe domain - 1hr
 >- [ ] create recipe repository and domain testing - 1hr
->- [ ] create recipe controller - 1hr
->- [ ] create recipe frontend - 1hr
+>- [x] create recipe controller - 1hr
+>- [x] create recipe frontend - 1hr
 >- [ ] view recipes repository and domain - 1hr
 >- [ ] view recipes by user id
 >- [ ] view recipes controller and frontend - 2hr
@@ -136,5 +136,5 @@
 >## Todo
 >- [ ] server sends size of query list so i can do pagination properly
 >- [ ] add query to url params 
->- [ ] make the recipe page
->- [ ] sort users saved recipes by timestamp
+>- [x] make the recipe page
+>- [x] sort users saved recipes by timestamp

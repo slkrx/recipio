@@ -29,15 +29,21 @@ class RecipeJdbcRepositoryTest {
     @Test
     void shouldFindRecipeById() {
         Recipe expected = TestHelpers.RECIPE1;
-        Recipe actual = repository.findById(2571);
+        Recipe actual = repository.findById(1);
         assertEquals(expected, actual);
     }
 
     @Test
     void shouldFindByRecipeIds() {
-        List<Recipe> expected = List.of(TestHelpers.RECIPE2, TestHelpers.RECIPE1);
-        List<Recipe> actual = repository.findByIds(List.of(2571, 1));
+        List<Recipe> expected = List.of(TestHelpers.RECIPE1, TestHelpers.RECIPE2);
+        List<Recipe> actual = repository.findByIds(List.of(1, 2));
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldCreateRecipe() {
+        Recipe actual = repository.create(TestHelpers.NEW_RECIPE);
+        assertEquals(3, actual.getId());
     }
     
 }

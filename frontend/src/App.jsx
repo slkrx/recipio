@@ -6,6 +6,9 @@ import Login from './components/Login'
 import NavBar from "./components/NavBar"
 import Home from './components/Home'
 import Register from './components/Register'
+import SavedRecipes from './components/SavedRecipes'
+import Recipe from "./components/Recipe"
+import RecipeForm from "./components/RecipeForm"
 
 const LOCAL_STORAGE_TOKEN_KEY = "recipioToken";
 
@@ -25,7 +28,6 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
     const { sub: username } = jwtDecode(token);
     const user = { username, token }
-    console.log(user)
     setUser(user)
     return user
   }
@@ -49,6 +51,9 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/login" element={user ? <Navigate to="/" replace={true}/> : <Login/>}/>
           <Route path="/register" element={user ? <Navigate to="/" replace={true}/> : <Register/>}/>
+          <Route path="/saved-recipes" element={user ? <SavedRecipes/> : <Navigate to="/" replace={true}/>}/>
+          <Route path="/recipe/:id" element={<Recipe />}/>
+          <Route path="/recipe/new" element={user ? <RecipeForm/> : <Navigate to="/" replace={true}/>}/>
         </Routes>
       </Router>
     </AuthContext.Provider>

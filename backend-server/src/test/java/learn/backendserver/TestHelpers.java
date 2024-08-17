@@ -8,7 +8,7 @@ import java.util.List;
 public class TestHelpers {
 
     public static Recipe RECIPE1 = new Recipe(
-            2571,
+            1,
             "Scrumpets",
             new String[]{"Bread","Quick Bread Scone Recipes"},
             (float)0,
@@ -21,7 +21,20 @@ public class TestHelpers {
             "https://www.allrecipes.com/recipe/268815/scrumpets/"
     );
     public static Recipe RECIPE2 = new Recipe(
-            1,
+            2,
+            "Turkey Stock",
+            new String[]{"Soups",  " Stews and Chili Broth and Stock Recipes"},
+            (float)4.4,
+            (short)18,
+            "https://www.allrecipes.com/thmb/1cRyH7S_GpiLN4pPI3tR5-7BdYI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/1990237-turkey-stock-Rebekah-Rose-Hills-4x3-1-7486363818bd44d3a89ece19391d9500.jpg",
+            "1 hr 30 mins",
+            "Make a great turkey stock with the carcass and then create wonderful soups. This recipe is the basic stock recipe my great-grandma used and her mother before her. Once you have a basic stock you can add leftovers, use it to cook rice, or make a soup with dumplings — the uses are endless! Hot stock with a few veggies and alphabet pasta is a great after-school warm-up. I have soup made in the fridge so hubby can snack on it instead of junk.",
+            new String[] {"1 turkey carcass", "3 onions, coarsely chopped", "1 pound carrots, coarsely chopped", "1 bunch celery, coarsely chopped", "1 green bell pepper, coarsely chopped", "3 cloves garlic", "4 cubes chicken bouillon", "1 tablespoon whole black peppercorns, or to taste", "3 bay leaves", "water to cover"},
+            new String[] {"Combine turkey carcass, onions, carrots, celery, green bell pepper, garlic, chicken bouillon cubes, peppercorns, and bay leaves in a stockpot; pour in enough water to cover. Bring mixture to a boil, reduce heat, and simmer until flavors blend, about 1 hour. Remove stockpot from heat and let sit for 15 minutes.", "Strain stock through a cheesecloth and discard solids.", "Cook’s Note", "I keep ends of root veggies and tops of bell peppers to use in meat stock when I make soup from leftover Sunday roast. Leaving the skin on the onion will darken stock and add more taste. I use roasted peppers and whole roasted garlic."},
+            "https://www.allrecipes.com/recipe/235243/turkey-stock/"
+    );
+    public static Recipe NEW_RECIPE = new Recipe(
+            0,
             "Turkey Stock",
             new String[]{"Soups",  " Stews and Chili Broth and Stock Recipes"},
             (float)4.4,
@@ -36,6 +49,13 @@ public class TestHelpers {
     public static AppUser USER1 = new AppUser(
             1,
             "john@smith.com",
+            "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
+            true,
+            List.of()
+    );
+    public static AppUser USER2 = new AppUser(
+            2,
+            "sally@jones.com",
             "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
             true,
             List.of()

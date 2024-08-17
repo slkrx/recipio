@@ -55,6 +55,18 @@ CREATE TABLE app_user_role (
         REFERENCES app_role(app_role_id)
 );
 
+CREATE TABLE app_user_recipe_created (
+    app_user_id INT,
+    recipe_id INT UNSIGNED,
+    created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_app_user_recipe_created_app_user_id
+        FOREIGN KEY (app_user_id)
+        REFERENCES app_user(app_user_id),
+    CONSTRAINT fk_app_user_recipe_created_recipe_id
+        FOREIGN KEY (recipe_id)
+        REFERENCES recipe(id)
+);
+
 INSERT INTO app_role (`name`) VALUES
     ('USER'),
     ('ADMIN');
@@ -66,6 +78,8 @@ BEGIN
     ALTER TABLE app_user_role AUTO_INCREMENT=1;
     DELETE FROM app_user_recipe_saved;
     ALTER TABLE app_user_recipe_saved AUTO_INCREMENT=1;
+    DELETE FROM app_user_recipe_created;
+    ALTER TABLE app_user_recipe_created AUTO_INCREMENT=1;
     DELETE FROM app_user;
     ALTER TABLE app_user AUTO_INCREMENT=1;
     DELETE FROM recipe;
@@ -84,7 +98,7 @@ BEGIN
         steps,
         url)
     VALUES
-        (2571,
+        (1,
         "Scrumpets",
         "Bread,Quick Bread Scone Recipes",
         0,
@@ -95,7 +109,7 @@ BEGIN
         "4 cups all-purpose flour, sifted|2 tablespoons white sugar|4 teaspoons baking powder|1 teaspoon salt|1 cup milk|3 eggs|½ cup butter, melted|1 teaspoon butter, or as needed (Optional)",
         "Combine flour, sugar, baking powder, and salt in a bowl; mix well.|Beat milk, eggs, and 1/2 cup melted butter together in another bowl; stir into flour mixture, with just a few strokes. Handle dough as little as possible.|Scrape dough onto a generously floured surface; dip your fingers in flour. Pat dough into a circle, about 1/2-inch thick. Cut into 4-inch rounds to form 18 scrumpets.|Melt enough remaining butter over medium-high heat in a large skillet until very lightly greased. Fill skillet with scrumpets, cooking in batches, and immediately reduce heat to medium. Cook 5 minutes; flip reduce heat again, and cook 5 minutes more. Cook remaining scrumpets, in batches, in lightly buttered skillet. Serve warm.|Cook's Notes:|Substitute 1 cup milk with 3/4 cup water if desired.|If you are like me and put the butter in the microwave while you are measuring out dry ingredients you may want to crack the eggs directly in the dry ingredients to avoid cooking them in the hot melted butter.",
         "https://www.allrecipes.com/recipe/268815/scrumpets/"),
-        (1,
+        (2,
         "Turkey Stock",
         "Soups, Stews and Chili Broth and Stock Recipes",
         4.4,
@@ -121,8 +135,16 @@ BEGIN
     
     INSERT INTO app_user_recipe_saved (app_user_id, recipe_id)
         VALUES
-        (1, 2571),
         (1, 1);
+    INSERT INTO app_user_recipe_saved (app_user_id, recipe_id, saved_time)
+        VALUES
+        (1, 2, CURRENT_TIMESTAMP + INTERVAL '10' SECOND);
+    INSERT INTO app_user_recipe_created (app_user_id, recipe_id)
+        VALUES
+        (1, 1);
+    INSERT INTO app_user_recipe_created (app_user_id, recipe_id, created_time)
+        VALUES
+        (1, 2, CURRENT_TIMESTAMP + INTERVAL '10' SECOND);
 
 END//
 DELIMITER ;

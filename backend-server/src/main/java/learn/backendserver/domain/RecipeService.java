@@ -23,4 +23,8 @@ public class RecipeService {
         return repository.findByIds(ids);
     }
 
+    public Recipe create(Recipe recipe) {
+        return repository.create(recipe);
+    }
+
 }

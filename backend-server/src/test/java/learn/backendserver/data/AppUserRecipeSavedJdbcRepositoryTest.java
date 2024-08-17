@@ -1,6 +1,7 @@
 package learn.backendserver.data;
 
 import learn.backendserver.TestHelpers;
+import learn.backendserver.models.AppUserRecipeSaved;
 import learn.backendserver.models.Recipe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,9 +27,19 @@ class AppUserRecipeSavedJdbcRepositoryTest {
     }
 
     @Test
-    void shouldFindRecipesByUsername() {
-        List<Recipe> actual = repository.findRecipeByUserSaved(TestHelpers.USER1.getUsername());
-        List<Recipe> expected = List.of(TestHelpers.RECIPE2, TestHelpers.RECIPE1);
-        assertEquals(expected, actual);
+    void shouldFindAppUserRecipesSavedByUsername() {
+        List<AppUserRecipeSaved> actual = repository.findByUsername(TestHelpers.USER1.getUsername());
+        assertEquals(1, actual.get(0).getRecipeSavedId());
+        assertEquals(2571, actual.get(1).getRecipeSavedId());
+    }
+
+    @Test
+    void shouldCreateAppUserRecipeSaved() {
+        assertTrue(repository.create(TestHelpers.USER2.getAppUserId(), TestHelpers.RECIPE1.getId()));
+    }
+
+    @Test
+    void shouldDeleteAppUserRecipeSaved() {
+        assertTrue(repository.delete(TestHelpers.USER1.getAppUserId(), TestHelpers.RECIPE1.getId()));
     }
 }
