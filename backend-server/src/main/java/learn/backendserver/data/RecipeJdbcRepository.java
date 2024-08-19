@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -89,5 +90,45 @@ public class RecipeJdbcRepository implements RecipeRepository {
 
         recipe.setId(insert.executeAndReturnKey(args).intValue());
         return recipe;
+    }
+
+    @Override
+    public boolean update(Recipe recipe) {
+        final String sql = """
+                UPDATE recipe SET
+                    title = ?,
+                    categories = ?,
+                    rating = ?,
+                    ratings = ?,
+                    image_url = ?,
+                    time = ?,
+                    description = ?,
+                    ingredients = ?,
+                    steps = ?,
+                    url = ?
+                WHERE id = ?;
+                """;
+
+        return jdbcTemplate.update(sql,
+            recipe.getTitle(),
+            String.join(",", recipe.getCategories()),
+            recipe.getRating(),
+            recipe.getRatings(),
+            recipe.getImageUrl(),
+            recipe.getTime(),
+            recipe.getDescription(),
+            String.join(",", recipe.getIngredients()),
+            String.join(",", recipe.getSteps()),
+            recipe.getUrl(),
+            recipe.getId()
+        ) > 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(int id) {
+        jdbcTemplate.update("DELETE FROM app_user_recipe_created WHERE recipe_id = ?;", id);
+        jdbcTemplate.update("DELETE FROM app_user_recipe_saved WHERE recipe_id = ?;", id);
+        return jdbcTemplate.update("DELETE FROM recipe WHERE id = ?;", id) > 0;
     }
 }

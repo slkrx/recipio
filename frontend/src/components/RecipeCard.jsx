@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 
-export default function RecipeCard({ recipe }) {
+export default function RecipeCard({ recipe, owned=false, deleteRecipe }) {
     const auth = useContext(AuthContext)
     const [userSavedRecipes, setUserSavedRecipes] = useState([])
 
@@ -19,6 +19,8 @@ export default function RecipeCard({ recipe }) {
     }
 
     let saveRecipeButton;
+    let editRecipeButton;
+    let deleteRecipeButton;
 
     if (auth.user) {
         if (userSavedRecipes.map(recipe => recipe.id).includes(recipe.id)) {
@@ -35,6 +37,22 @@ export default function RecipeCard({ recipe }) {
                 className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 onClick={saveRecipe}>
                     Save Recipe
+                </button>
+            )
+        }
+        if (owned) {
+            editRecipeButton = (
+                <Link
+                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-amber-400 rounded-lg hover:bg-amber-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                to={`/edit/${recipe.id}`}>
+                    Edit Recipe
+                </Link>
+            )
+            deleteRecipeButton = (
+                <button
+                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                onClick={() => deleteRecipe(recipe.id)}>
+                    Delete Recipe
                 </button>
             )
         }
@@ -87,6 +105,8 @@ export default function RecipeCard({ recipe }) {
                             </svg>
                         </Link>
                         {saveRecipeButton}
+                        {editRecipeButton}
+                        {deleteRecipeButton}
                     </div>
                 </div>
             </div>

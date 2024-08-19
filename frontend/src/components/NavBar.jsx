@@ -37,6 +37,12 @@ function NavBar() {
                           <li>
                               <NavLink to="/recipe/new" className="text-gray-900 dark:text-white hover:underline">New Recipe</NavLink>
                           </li>
+                          <li>
+                              <NavLink to="/my-recipes" className="text-gray-900 dark:text-white hover:underline">My Recipes</NavLink>
+                          </li>
+                          <li>
+                              <NavLink to="/organization/new" className="text-gray-900 dark:text-white hover:underline">New Organization</NavLink> 
+                          </li>
                         </>
                       )}
                   </ul>

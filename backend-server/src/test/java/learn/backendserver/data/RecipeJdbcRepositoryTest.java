@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class RecipeJdbcRepositoryTest {
@@ -44,6 +44,20 @@ class RecipeJdbcRepositoryTest {
     void shouldCreateRecipe() {
         Recipe actual = repository.create(TestHelpers.NEW_RECIPE);
         assertEquals(3, actual.getId());
+    }
+
+    @Test
+    void shouldUpdateRecipe() {
+        Recipe arg = repository.findById(1);
+        arg.setTitle("new title");
+        assertTrue(repository.update(arg));
+        assertEquals("new title", repository.findById(1).getTitle());
+    }
+
+    @Test
+    void shouldDeleteRecipe() {
+        assertTrue(repository.delete(1));
+        assertNull(repository.findById(1));
     }
     
 }

@@ -33,17 +33,20 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/recipes/search**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/recipes/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/recipes/**").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/api/recipes/**").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/api/recipes/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/recipes/save**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/app-user-recipe-saved/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/app-user-recipe-saved/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/app-user-recipe-created/**").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/api/app-user-recipe-saved/**").permitAll()
-                .requestMatchers(HttpMethod.POST,
-                        "/security/authenticate").permitAll()
-                .requestMatchers(HttpMethod.POST,
-                        "/security/register").permitAll()
-                .requestMatchers(HttpMethod.POST,
-                        "/security/refresh").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/organizations/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/organizations/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/organization-app-user/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/organization-app-user").permitAll()
+                .requestMatchers(HttpMethod.POST, "/security/authenticate").permitAll()
+                .requestMatchers(HttpMethod.POST, "/security/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/security/refresh").authenticated()
                 // if we get to this point, let's deny all requests
                 .requestMatchers("/dist/**").permitAll()
                 .requestMatchers("/**").denyAll());

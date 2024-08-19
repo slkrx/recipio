@@ -108,30 +108,30 @@
 >- [ ] create recipe repository and domain testing - 1hr
 >- [x] create recipe controller - 1hr
 >- [x] create recipe frontend - 1hr
->- [ ] view recipes repository and domain - 1hr
->- [ ] view recipes by user id
->- [ ] view recipes controller and frontend - 2hr
->- [ ] test view recipes domain and repository - 1hr
->- [ ] update recipe repository - 1hr
->- [ ] update recipe domain - 1hr
->- [ ] test update recipe repository and domain layer - 1hr
->- [ ] update recipe controller - 1hr
->- [ ] update recipe frontend - 1hr
->- [ ] delete recipe repository - 1hr
->- [ ] delete recipe domain - 1hr
->- [ ] test delete recipe repository and domain layer - 1hr
->- [ ] delete recipe controller - 1hr
->- [ ] delete recipe frontend - 1hr
->- [ ] create organization repository - 1hr
->- [ ] create organization domain - 1hr
->- [ ] create organization repository and domain testing - 2hr
->- [ ] create organization controller - 1hr
->- [ ] create organization frontend - 1hr
->- [ ] add users to organization repository - 1hr
->- [ ] add users to organization domain - 1hr
->- [ ] add users to organization repository and domain testing - 2hr
->- [ ] add users to organization controller - 1hr
->- [ ] add users to organization frontend - 1hr
+>- [x] view recipes repository and domain - 1hr
+>- [x] view recipes by user id
+>- [x] view recipes controller and frontend - 2hr
+>- [x] test view recipes domain and repository - 1hr
+>- [x] update recipe repository - 1hr
+>- [x] update recipe domain - 1hr
+>- [x] test update recipe repository and domain layer - 1hr
+>- [x] update recipe controller - 1hr
+>- [x] update recipe frontend - 1hr
+>- [x] delete recipe repository - 1hr
+>- [x] delete recipe domain - 1hr
+>- [x] test delete recipe repository and domain layer - 1hr
+>- [x] delete recipe controller - 1hr
+>- [x] delete recipe frontend - 1hr
+>- [x] create organization repository - 1hr
+>- [x] create organization domain - 1hr
+>- [x] create organization repository and domain testing - 2hr
+>- [x] create organization controller - 1hr
+>- [x] create organization frontend - 1hr
+>- [x] add users to organization repository - 1hr
+>- [x] add users to organization domain - 1hr
+>- [x] add users to organization repository and domain testing - 2hr
+>- [x] add users to organization controller - 1hr
+>- [x] add users to organization frontend - 1hr
 
 >## Todo
 >- [ ] server sends size of query list so i can do pagination properly

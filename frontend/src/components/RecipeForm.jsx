@@ -1,6 +1,6 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function RecipeForm() {
     const INITIAL_RECIPE = {
@@ -15,19 +15,45 @@ export default function RecipeForm() {
     const [recipe, setRecipe] = useState(INITIAL_RECIPE)
     const auth = useContext(AuthContext)
     const navigate = useNavigate()
+    const { id } = useParams()
+
+    useEffect(() => {
+        if (id) {
+            getRecipe()
+        }
+    }, [id])
+
+    async function getRecipe() {
+        const response = await fetch(`http://localhost:8080/api/recipes/${id}`)
+        const data = await response.json()
+        setRecipe(data)
+    }
 
     async function handleSubmit(event) {
         event.preventDefault()
 
-        const response = await fetch(`http://localhost:8080/api/recipes/${auth.user.username}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(recipe)
-        })
-        const data = await response.json()
-        navigate(`/recipe/${data.id}`)
+        if (id) {
+            const response = await fetch(`http://localhost:8080/api/recipes/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(recipe)
+            })
+            if (response.ok) {
+                navigate(`/recipe/${id}`)
+            }
+        } else {
+            const response = await fetch(`http://localhost:8080/api/recipes/${auth.user.username}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(recipe)
+            })
+            const data = await response.json()
+            navigate(`/recipe/${data.id}`)
+        }
     }
 
     function handleChange(event) {
@@ -49,7 +75,7 @@ export default function RecipeForm() {
                 onSubmit={handleSubmit}
             >
                 <h1 className="font-fancy text-4xl my-8 text-dark-charcoal px-8">
-                    Create New Recipe
+                    {id ? "Update Recipe" : "Create New Recipe"}
                 </h1>
                 <div className="px-8 font-outfit text-wenge-brown">
                     <div>
@@ -61,6 +87,7 @@ export default function RecipeForm() {
                             className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             required=""
                             onChange={handleChange}
+                            value={recipe.title}
                         />
                     </div>
                     <div>
@@ -71,6 +98,7 @@ export default function RecipeForm() {
                             className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             required=""
                             onChange={handleChange}
+                            value={recipe.description}
                         />
                     </div>
                     <div className="mb-3 flex space-x-3">
@@ -83,6 +111,7 @@ export default function RecipeForm() {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 required=""
                                 onChange={handleChange}
+                                value={recipe.time}
                             />
                         </div>
                         <div className="w-1/2">
@@ -94,24 +123,36 @@ export default function RecipeForm() {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 required=""
                                 onChange={handleChange}
+                                value={recipe.imageUrl}
                             />
                         </div>
                     </div>
                     <div className="mb-3 flex space-x-3">
                         <div className="w-1/2">
-                            <label htmlFor="categories" className="block text-center">Categories</label>
+                            <label htmlFor="categories" className="block">Categories</label>
                             <div id="categories">
                                 {recipe.categories.map((category, i) => {
                                     return (
-                                        <input
-                                            key={i}
-                                            type="text"
-                                            name="categories"
-                                            className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                            required=""
-                                            onChange={(event) => handleArrayChange(event, i)}
-                                            value={category}
-                                        />
+                                        <div className="flex space-x-3" key={i}>
+                                            <input
+                                                key={i}
+                                                type="text"
+                                                name="categories"
+                                                className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                required=""
+                                                onChange={(event) => handleArrayChange(event, i)}
+                                                value={category}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full flex justify-center items-center"
+                                                onClick={() => { setRecipe({...recipe, categories: recipe.categories.slice(0,i).concat(recipe.categories.slice(i+1))}) } }
+                                            >
+                                                <svg className="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     )
                                 })}
                             </div>
@@ -126,19 +167,29 @@ export default function RecipeForm() {
                             </div>
                         </div>
                         <div className="w-1/2">
-                            <label htmlFor="ingredients" className="block text-center">Ingredients</label>
+                            <label htmlFor="ingredients" className="block">Ingredients</label>
                             <div id="ingredients">
                                 {recipe.ingredients.map((ingredient, i) => {
                                     return (
-                                        <input
-                                            key={i}
-                                            type="text"
-                                            name="ingredients"
-                                            className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                            required=""
-                                            onChange={(event) => handleArrayChange(event, i)}
-                                            value={ingredient}
-                                        />
+                                        <div className="flex space-x-3" key={i}>
+                                            <input
+                                                type="text"
+                                                name="ingredients"
+                                                className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                required=""
+                                                onChange={(event) => handleArrayChange(event, i)}
+                                                value={ingredient}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full flex justify-center items-center"
+                                                onClick={() => { setRecipe({...recipe, ingredients: recipe.ingredients.slice(0,i).concat(recipe.ingredients.slice(i+1))}) } }
+                                            >
+                                                <svg className="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     )
                                 })}
                             </div>
@@ -154,18 +205,29 @@ export default function RecipeForm() {
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="steps" className="block text-center">Instructions</label>
+                        <label htmlFor="steps" className="block">Instructions</label>
                         <div id="steps">
                             {recipe.steps.map((step, i) => {
                                 return (
-                                    <textarea
-                                        key={i}
-                                        name="steps"
-                                        className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                        required=""
-                                        onChange={(event) => handleArrayChange(event, i)}
-                                        value={step}
-                                    />
+                                    <div className="flex space-x-3" key={i}>
+                                        <textarea
+                                            key={i}
+                                            name="steps"
+                                            className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                            required=""
+                                            onChange={(event) => handleArrayChange(event, i)}
+                                            value={step}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full flex justify-center items-center"
+                                            onClick={() => { setRecipe({...recipe, steps: recipe.steps.slice(0,i).concat(recipe.steps.slice(i+1))}) } }
+                                        >
+                                            <svg className="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 )
                             })}
                         </div>
@@ -184,7 +246,7 @@ export default function RecipeForm() {
                             type="submit"
                             className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         >
-                            Create
+                            {id ? "Update" : "Create"}
                         </button>
                     </div>
                 </div>

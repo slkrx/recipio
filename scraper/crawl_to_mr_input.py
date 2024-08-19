@@ -1,7 +1,7 @@
 """crawl to mr input"""
 import csv
 
-with open(file='sample_crawl.csv', newline='', encoding='utf8') as input_file, open(file='input.csv', mode='a', encoding='utf8') as output_file:
+with open(file='crawl.csv', newline='', encoding='utf8') as input_file, open(file='input.csv', mode='w', encoding='utf8') as output_file:
     reader = csv.DictReader(input_file, fieldnames=[
         'id',
         'title',
@@ -16,8 +16,8 @@ with open(file='sample_crawl.csv', newline='', encoding='utf8') as input_file, o
         'url'
     ])
     for i, row in enumerate(reader):
-        if i == 0:
-            continue
+        # if i == 0:
+        #     continue
         doc_body = row['title'] + ' ' + \
             ' '.join(row['categories'].split(',')) + ' ' + \
             row['description'] + ' ' + \

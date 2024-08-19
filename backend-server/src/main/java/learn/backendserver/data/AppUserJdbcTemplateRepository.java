@@ -39,6 +39,23 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
     }
 
     @Override
+    public AppUser findById(int appUserId) {
+        final String sql = """
+                select
+                    app_user_id,
+                    username,
+                    password_hash,
+                    enabled
+                from app_user
+                where app_user_id = ?;
+                """;
+
+        return jdbcTemplate.query(sql, new AppUserMapper(List.of("USER")), appUserId)
+                .stream()
+                .findFirst().orElse(null);
+    }
+
+    @Override
     public AppUser create(AppUser user) {
         SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("app_user")

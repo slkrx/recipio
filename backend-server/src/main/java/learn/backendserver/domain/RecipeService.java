@@ -27,4 +27,12 @@ public class RecipeService {
         return repository.create(recipe);
     }
 
+    public boolean update(Recipe recipe) {
+        return repository.update(recipe);
+    }
+
+    public boolean delete(int id) {
+        return repository.delete(id);
+    }
+
 }

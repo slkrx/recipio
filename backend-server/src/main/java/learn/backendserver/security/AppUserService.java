@@ -40,6 +40,10 @@ public class AppUserService implements UserDetailsService {
         return user;
     }
 
+    public AppUser findById(int appUserId) {
+        return repository.findById(appUserId);
+    }
+
     public Result<AppUser> register(Credentials credentials) {
         Result<AppUser> result = validate(credentials);
 

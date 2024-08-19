@@ -67,6 +67,26 @@ CREATE TABLE app_user_recipe_created (
         REFERENCES recipe(id)
 );
 
+CREATE TABLE organization (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    owner_id INT,
+    name VARCHAR(500),
+    CONSTRAINT fk_owner_id_app_user_id
+        FOREIGN KEY (owner_id)
+        REFERENCES app_user(app_user_id)
+);
+
+CREATE TABLE organization_app_user (
+    organization_id INT,
+    app_user_id INT,
+    CONSTRAINT fk_organization_app_user_organization_id
+        FOREIGN KEY (organization_id)
+        REFERENCES organization(id),
+    CONSTRAINT fk_organization_app_user_app_user_id
+        FOREIGN KEY (app_user_id)
+        REFERENCES app_user(app_user_id)
+);
+
 INSERT INTO app_role (`name`) VALUES
     ('USER'),
     ('ADMIN');
@@ -80,6 +100,10 @@ BEGIN
     ALTER TABLE app_user_recipe_saved AUTO_INCREMENT=1;
     DELETE FROM app_user_recipe_created;
     ALTER TABLE app_user_recipe_created AUTO_INCREMENT=1;
+    DELETE FROM organization_app_user;
+    ALTER TABLE organization_app_user AUTO_INCREMENT=1;
+    DELETE FROM organization;
+    ALTER TABLE organization AUTO_INCREMENT=1;
     DELETE FROM app_user;
     ALTER TABLE app_user AUTO_INCREMENT=1;
     DELETE FROM recipe;
@@ -126,7 +150,8 @@ BEGIN
     INSERT INTO app_user (username, password_hash, enabled)
         VALUES
         ('john@smith.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
-        ('sally@jones.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1);
+        ('sally@jones.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
+        ('test@test.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1);
 
     INSERT INTO app_user_role
         VALUES
@@ -139,12 +164,21 @@ BEGIN
     INSERT INTO app_user_recipe_saved (app_user_id, recipe_id, saved_time)
         VALUES
         (1, 2, CURRENT_TIMESTAMP + INTERVAL '10' SECOND);
+
     INSERT INTO app_user_recipe_created (app_user_id, recipe_id)
         VALUES
         (1, 1);
     INSERT INTO app_user_recipe_created (app_user_id, recipe_id, created_time)
         VALUES
         (1, 2, CURRENT_TIMESTAMP + INTERVAL '10' SECOND);
+
+    INSERT INTO organization (name, owner_id)
+        VALUES
+        ("test", 1);
+
+    INSERT INTO organization_app_user (organization_id, app_user_id)
+        VALUES
+        (1, 2);
 
 END//
 DELIMITER ;

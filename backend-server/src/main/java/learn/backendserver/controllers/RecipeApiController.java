@@ -72,4 +72,20 @@ public class RecipeApiController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody Recipe recipe, @PathVariable int id) {
+        if (service.update(recipe)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        if (service.delete(id)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
 }
