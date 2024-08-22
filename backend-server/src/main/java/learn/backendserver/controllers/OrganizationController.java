@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/organizations")
 public class OrganizationController {
@@ -40,4 +42,28 @@ public class OrganizationController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping
+    public List<Organization> findByUsername(@RequestParam String username) {
+        return service.findByUsername(username);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        Result<?> result = service.delete(id);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(result.getMessages(), HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody Organization organization) {
+        Result<?> result = service.update(organization);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(result.getMessages(), HttpStatus.BAD_REQUEST);
+    }
+
 }

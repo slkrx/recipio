@@ -23,4 +23,8 @@ public class OrganizationAppUserService {
         return repository.create(organizationAppUser);
     }
 
+    public List<OrganizationAppUser> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
 }

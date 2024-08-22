@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import { useNavigate, useParams } from "react-router-dom"
+import { PlusCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
 
 export default function RecipeForm() {
     const INITIAL_RECIPE = {
@@ -130,27 +131,25 @@ export default function RecipeForm() {
                     <div className="mb-3 flex space-x-3">
                         <div className="w-1/2">
                             <label htmlFor="categories" className="block">Categories</label>
-                            <div id="categories">
+                            <div id="categories" className="grid gap-3 mb-3">
                                 {recipe.categories.map((category, i) => {
                                     return (
-                                        <div className="flex space-x-3" key={i}>
+                                        <div className="flex gap-3 justify-center" key={i}>
                                             <input
                                                 key={i}
                                                 type="text"
                                                 name="categories"
-                                                className="mb-3 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                                 required=""
                                                 onChange={(event) => handleArrayChange(event, i)}
                                                 value={category}
                                             />
                                             <button
                                                 type="button"
-                                                className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full flex justify-center items-center"
+                                                className="text-dark-raspberry flex justify-center items-center"
                                                 onClick={() => { setRecipe({...recipe, categories: recipe.categories.slice(0,i).concat(recipe.categories.slice(i+1))}) } }
                                             >
-                                                <svg className="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
+                                                <XCircleIcon className="text-dark-raspberry h-10 w-10"/>
                                             </button>
                                         </div>
                                     )
@@ -159,10 +158,9 @@ export default function RecipeForm() {
                             <div className="flex justify-center">
                                 <button
                                     type="button"
-                                    className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full"
                                     onClick={() => { setRecipe({...recipe, categories: [...recipe.categories, ""]}) }}
                                 >
-                                    +
+                                    <PlusCircleIcon className="text-pine h-10 w-10"/>
                                 </button>
                             </div>
                         </div>
@@ -182,12 +180,9 @@ export default function RecipeForm() {
                                             />
                                             <button
                                                 type="button"
-                                                className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full flex justify-center items-center"
                                                 onClick={() => { setRecipe({...recipe, ingredients: recipe.ingredients.slice(0,i).concat(recipe.ingredients.slice(i+1))}) } }
                                             >
-                                                <svg className="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
+                                                <XCircleIcon className="text-dark-raspberry h-10 w-10"/>
                                             </button>
                                         </div>
                                     )
@@ -196,10 +191,9 @@ export default function RecipeForm() {
                             <div className="flex justify-center">
                                 <button
                                     type="button"
-                                    className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full"
                                     onClick={() => { setRecipe({...recipe, ingredients: [...recipe.ingredients, ""]}) }}
                                 >
-                                    +
+                                    <PlusCircleIcon className="text-pine h-10 w-10"/>
                                 </button>
                             </div>
                         </div>
@@ -220,12 +214,9 @@ export default function RecipeForm() {
                                         />
                                         <button
                                             type="button"
-                                            className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full flex justify-center items-center"
                                             onClick={() => { setRecipe({...recipe, steps: recipe.steps.slice(0,i).concat(recipe.steps.slice(i+1))}) } }
                                         >
-                                            <svg className="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
+                                            <XCircleIcon className="text-dark-raspberry h-10 w-10"/>
                                         </button>
                                     </div>
                                 )
@@ -234,17 +225,16 @@ export default function RecipeForm() {
                         <div className="flex justify-center">
                             <button
                                 type="button"
-                                className="w-10 h-10 text-lg text-dark-charcoal bg-rose-white rounded-full"
                                 onClick={() => { setRecipe({...recipe, steps: [...recipe.steps, ""]}) }}
                             >
-                                +
+                                <PlusCircleIcon className="text-pine h-10 w-10"/>
                             </button>
                         </div>
                     </div>
                     <div>
                         <button
                             type="submit"
-                            className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            className="text-white bg-water hover:bg-water-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         >
                             {id ? "Update" : "Create"}
                         </button>

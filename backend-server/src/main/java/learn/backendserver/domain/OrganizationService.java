@@ -3,9 +3,10 @@ package learn.backendserver.domain;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import learn.backendserver.data.OrganizationRepository;
-import learn.backendserver.models.Credentials;
 import learn.backendserver.models.Organization;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrganizationService {
@@ -31,6 +32,10 @@ public class OrganizationService {
         return repository.findById(id);
     }
 
+    public List<Organization> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
     private Result<Organization> validate(Organization organization) {
         Result<Organization> result = new Result<>();
 
@@ -45,6 +50,24 @@ public class OrganizationService {
             result.addMessage(violation.getMessage());
         }
 
+        return result;
+    }
+
+    public Result<Void> delete(int organizationId) {
+        Result<Void> result = new Result<>();
+        if (repository.delete(organizationId)) {
+            return result;
+        }
+        result.addMessage(String.format("Organization %d not found", organizationId));
+        return result;
+    }
+
+    public Result<Void> update(Organization organization) {
+        Result<Void> result = new Result<>();
+        if (repository.update(organization)) {
+            return result;
+        }
+        result.addMessage("Server error");
         return result;
     }
 

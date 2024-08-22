@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 
@@ -13,31 +13,43 @@ export default function OrganizationForm() {
     async function handleSubmit(event) {
         event.preventDefault()
 
-        if (id) {
-            return
-        } else {
-            try {
-                const response = await fetch(`http://localhost:8080/api/organizations/${auth.user.username}`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(organization),
-                })
-                const data = await response.json()
-                if (response.ok) {
-                    navigate(`/organization/${data.id}`)
-                } else {
-                    setErrors(data)
-                }
-            } catch(error) {
-                setErrors(["Server failure"])
+        try {
+            const response = await fetch(`http://localhost:8080/api/organizations/${id ? id : auth.user.username}`, {
+                method: `${id ? "PUT" : "POST"}`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(organization),
+            })
+            let data
+            if (!id) {
+                data = await response.json()
             }
+            if (response.ok) {
+                navigate(`/organization/${id ? id : data.id}`, { state: {owned: true} })
+            } else {
+                setErrors(data)
+            }
+        } catch(error) {
+            console.log(error)
+            setErrors(["Server failure"])
         }
     }
 
     function handleChange(event) {
         setOrganization({...organization, [event.target.name]: event.target.value})
+    }
+
+    useEffect(() => {
+        if (id) {
+            getOrganization()
+        }
+    }, [id])
+
+    async function getOrganization() {
+        const response = await fetch(`http://localhost:8080/api/organizations/${id}`)
+        const data = await response.json()
+        setOrganization(data)
     }
 
     return (
@@ -72,7 +84,7 @@ export default function OrganizationForm() {
                     <div>
                         <button
                             type="submit"
-                            className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            className="text-white bg-water hover:bg-water-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         >
                             {id ? "Update" : "Create"}
                         </button>

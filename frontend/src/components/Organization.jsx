@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 
 export default function Organization() {
     const [organization, setOrganization] = useState({})
@@ -7,11 +7,32 @@ export default function Organization() {
     const [errors, setErrors] = useState([])
     const [username, setUsername] = useState("")
     const [members, setMembers] = useState([])
+    const [recipes, setRecipes] = useState([])
+    const location = useLocation()
+    let owned = false
+    if (location?.state) {
+        owned = location.state.owned
+    }
 
     useEffect(() => {
         getOrganization()
-        getMembers()
+        if (owned) {
+            getMembers()
+        }
+        getRecipes()
     }, [])
+
+    async function getRecipes() {
+        try {
+            const response = await fetch(`http://localhost:8080/api/organization-recipe/${id}`)
+            const data = await response.json()
+            if (response.ok) {
+                setRecipes(data)
+            }
+        } catch(error) {
+            console.log(error)
+        }
+    }
 
     async function getOrganization() {
         try {
@@ -60,16 +81,11 @@ export default function Organization() {
         }
     }
 
-    return (
-        <div className="flex justify-center mt-5">
-            <article
-                className="w-full bg-[#fff] md:mb-[5rem] pb-8 md:rounded-xl md:max-w-screen-md"
-            >
-                <div className="px-8 font-outfit text-wenge-brown">
-                    <h1 className="font-fancy text-4xl mt-8 text-dark-charcoal">
-                        {organization?.name}
-                    </h1>
-                </div>
+    let membersHtml;
+
+    if (owned) {
+        membersHtml = (
+            <>
                 <article className="bg-rose-white m-6 p-5 rounded-xl">
                     <h2 className="text-dark-raspberry text-xl font-semibold ml-2">
                     Members:
@@ -110,13 +126,44 @@ export default function Organization() {
                         <div>
                             <button
                                 type="submit"
-                                className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                className="text-white bg-water hover:bg-water-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
                                 Add Member
                             </button>
                         </div>
                     </div>
                 </form>
+            </>
+        )
+    }
+
+    return (
+        <div className="flex justify-center mt-5">
+            <article
+                className="w-full bg-[#fff] md:mb-[5rem] pb-8 md:rounded-xl md:max-w-screen-md"
+            >
+                <div className="px-8 font-outfit text-wenge-brown">
+                    <h1 className="font-fancy text-4xl mt-8 text-dark-charcoal">
+                        {organization?.name}
+                    </h1>
+                </div>
+                {membersHtml}
+                <article className="bg-light-gray m-6 p-5 rounded-xl">
+                    <h2 className="text-nutmeg text-xl font-semibold ml-2">
+                    Recipes:
+                    </h2>
+                    <ul className="list-disc mt-3 ml-8 text-lg marker:text-nutmeg">
+                        {recipes.map((recipe, i) => {
+                            return(
+                                <li key={i}>
+                                    <Link className="pl-3" to={`/recipe/${recipe.id}`}>
+                                        {recipe.title}
+                                    </Link>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </article>
             </article>
         </div>
     )

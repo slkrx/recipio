@@ -1,7 +1,9 @@
 package learn.backendserver.controllers;
 
 import learn.backendserver.domain.OrganizationAppUserService;
+import learn.backendserver.domain.OrganizationService;
 import learn.backendserver.models.AppUser;
+import learn.backendserver.models.Organization;
 import learn.backendserver.models.OrganizationAppUser;
 import learn.backendserver.models.OrganizationUsername;
 import learn.backendserver.security.AppUserService;
@@ -17,10 +19,12 @@ public class OrganizationAppUserController {
 
     private final OrganizationAppUserService service;
     private final AppUserService userService;
+    private final OrganizationService organizationService;
 
-    public OrganizationAppUserController(OrganizationAppUserService service, AppUserService userService) {
+    public OrganizationAppUserController(OrganizationAppUserService service, AppUserService userService, OrganizationService organizationService) {
         this.service = service;
         this.userService = userService;
+        this.organizationService = organizationService;
     }
 
     @GetMapping("/{organizationId}")
@@ -28,6 +32,14 @@ public class OrganizationAppUserController {
         List<OrganizationAppUser> organizationAppUsers = service.findByOrganizationId(organizationId);
         return organizationAppUsers.stream().map(organizationAppUser -> {
             return userService.findById(organizationAppUser.getAppUserId());
+        }).toList();
+    }
+
+    @GetMapping
+    public List<Organization> findByUsername(@RequestParam String username) {
+        List<OrganizationAppUser> organizationAppUsers = service.findByUsername(username);
+        return organizationAppUsers.stream().map(organizationAppUser -> {
+            return organizationService.findById(organizationAppUser.getOrganizationId());
         }).toList();
     }
 

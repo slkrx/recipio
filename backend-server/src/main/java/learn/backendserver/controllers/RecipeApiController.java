@@ -41,19 +41,20 @@ public class RecipeApiController {
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> message = new HashMap<>();
+        JsonNode root;
         try {
-            JsonNode root = mapper.readTree(response.getBody());
-            List<Recipe> recipes = new ArrayList<>();
-            root.path("docs").forEach(doc -> recipes.add(service.findById(doc.path("docid").asInt())));
-            int length = root.path("length").asInt();
-            message.put("recipes", recipes);
-            message.put("length", length);
-            return message;
+            root = mapper.readTree(response.getBody());
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
+            message.put("recipes", new ArrayList<>());
+            message.put("length", 0);
+            return message;
         }
-        message.put("recipes", new ArrayList<>());
-        message.put("length", 0);
+        List<Recipe> recipes = new ArrayList<>();
+        root.path("docs").forEach(doc -> recipes.add(service.findById(doc.path("docid").asInt())));
+        int length = root.path("length").asInt();
+        message.put("recipes", recipes);
+        message.put("length", length);
         return message;
     }
 

@@ -19,8 +19,10 @@ export default function SavedRecipes() {
     }
 
     return (
-        <div className="flex flex-wrap -mx-1 lg:-mx-4">
-            {savedRecipes.map((recipe, i) => <RecipeCard key={i} recipe={recipe}/>)}
+        <div className="container my-12 mx-auto px-4 md:px-12">
+            <div className="flex flex-wrap -mx-1 lg:-mx-4">
+                {savedRecipes.map((recipe, i) => <RecipeCard key={i} recipe={recipe}/>)}
+            </div>
         </div>
     )
 }

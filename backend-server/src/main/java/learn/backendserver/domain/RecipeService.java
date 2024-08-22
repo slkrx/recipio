@@ -19,10 +19,6 @@ public class RecipeService {
         return repository.findById(id);
     }
 
-    public List<Recipe> findByIds(List<Integer> ids) {
-        return repository.findByIds(ids);
-    }
-
     public Recipe create(Recipe recipe) {
         return repository.create(recipe);
     }

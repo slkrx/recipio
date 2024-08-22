@@ -28,6 +28,19 @@ public class OrganizationAppUserJdbcRepository implements OrganizationAppUserRep
     }
 
     @Override
+    public List<OrganizationAppUser> findByUsername(String username) {
+        final String sql = """
+                SELECT
+                    oau.organization_id,
+                    oau.app_user_id
+                FROM organization_app_user oau
+                INNER JOIN app_user au ON au.app_user_id = oau.app_user_id
+                WHERE au.username = ?
+                """;
+        return jdbcTemplate.query(sql, new OrganizationAppUserMapper(), username);
+    }
+
+    @Override
     public boolean create(OrganizationAppUser organizationAppUser) {
         final String sql = """
                 INSERT INTO

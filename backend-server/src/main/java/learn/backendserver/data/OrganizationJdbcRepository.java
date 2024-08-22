@@ -4,8 +4,10 @@ import learn.backendserver.models.Organization;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class OrganizationJdbcRepository implements OrganizationRepository {
@@ -30,6 +32,20 @@ public class OrganizationJdbcRepository implements OrganizationRepository {
     }
 
     @Override
+    public List<Organization> findByUsername(String username) {
+        final String sql = """
+                SELECT
+                    o.name,
+                    o.owner_id,
+                    o.id
+                FROM organization o
+                INNER JOIN app_user u ON u.app_user_id = o.owner_id
+                WHERE u.username = ?;
+                """;
+        return jdbcTemplate.query(sql, new OrganizationMapper(), username);
+    }
+
+    @Override
     public Organization create(Organization organization) {
         SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("organization")
@@ -46,11 +62,20 @@ public class OrganizationJdbcRepository implements OrganizationRepository {
 
     @Override
     public boolean update(Organization organization) {
-        return false;
+        final String sql = """
+                UPDATE organization SET
+                    name = ?
+                WHERE
+                    id = ?;
+                """;
+        return jdbcTemplate.update(sql, organization.getName(), organization.getId()) > 0;
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
-        return false;
+        jdbcTemplate.update("DELETE FROM organization_app_user WHERE organization_id = ?;", id);
+        jdbcTemplate.update("DELETE FROM organization_recipe WHERE organization_id = ?;", id);
+        return jdbcTemplate.update("DELETE FROM organization WHERE id = ?;", id) > 0;
     }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface OrganizationAppUserRepository {
     List<OrganizationAppUser> findByOrganizationId(int organizationId);
     boolean create(OrganizationAppUser organizationAppUser);
+    List<OrganizationAppUser> findByUsername(String username);
 }

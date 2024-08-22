@@ -87,6 +87,17 @@ CREATE TABLE organization_app_user (
         REFERENCES app_user(app_user_id)
 );
 
+CREATE TABLE organization_recipe (
+    organization_id INT,
+    recipe_id INT UNSIGNED,
+    CONSTRAINT fk_organization_recipe_organization_id
+        FOREIGN KEY (organization_id)
+        REFERENCES organization(id),
+    CONSTRAINT fk_organization_recipe_recipe_id
+        FOREIGN KEY (recipe_id)
+        REFERENCES recipe(id)
+);
+
 INSERT INTO app_role (`name`) VALUES
     ('USER'),
     ('ADMIN');
@@ -100,8 +111,12 @@ BEGIN
     ALTER TABLE app_user_recipe_saved AUTO_INCREMENT=1;
     DELETE FROM app_user_recipe_created;
     ALTER TABLE app_user_recipe_created AUTO_INCREMENT=1;
+
     DELETE FROM organization_app_user;
     ALTER TABLE organization_app_user AUTO_INCREMENT=1;
+    DELETE FROM organization_recipe;
+    ALTER TABLE organization_recipe AUTO_INCREMENT=1;
+
     DELETE FROM organization;
     ALTER TABLE organization AUTO_INCREMENT=1;
     DELETE FROM app_user;
@@ -179,6 +194,10 @@ BEGIN
     INSERT INTO organization_app_user (organization_id, app_user_id)
         VALUES
         (1, 2);
+
+    INSERT INTO organization_recipe (organization_id, recipe_id)
+        VALUES
+        (1, 1);
 
 END//
 DELIMITER ;

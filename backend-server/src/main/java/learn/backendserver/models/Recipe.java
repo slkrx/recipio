@@ -33,6 +33,20 @@ public class Recipe {
         this.url = url;
     }
 
+    public Recipe(Recipe recipe) {
+        this.id =           recipe.getId();
+        this.title =        recipe.getTitle();
+        this.categories =   recipe.getCategories();
+        this.rating =       recipe.getRating();
+        this.ratings =      recipe.getRatings();
+        this.imageUrl =     recipe.getImageUrl();
+        this.time =         recipe.getTime();
+        this.description =  recipe.getDescription();
+        this.ingredients =  recipe.getIngredients();
+        this.steps =        recipe.getSteps();
+        this.url =          recipe.getUrl();
+    }
+
     public int getId() {
         return id;
     }

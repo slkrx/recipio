@@ -12,6 +12,7 @@ import RecipeForm from "./components/RecipeForm"
 import MyRecipes from "./components/MyRecipes"
 import OrganizationForm from "./components/OrganizationForm"
 import Organization from "./components/Organization"
+import MyOrganizations from "./components/MyOrganizations"
 
 const LOCAL_STORAGE_TOKEN_KEY = "recipioToken";
 
@@ -49,19 +50,25 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <Router>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/login" element={user ? <Navigate to="/" replace={true}/> : <Login/>}/>
-          <Route path="/register" element={user ? <Navigate to="/" replace={true}/> : <Register/>}/>
-          <Route path="/saved-recipes" element={user ? <SavedRecipes/> : <Navigate to="/" replace={true}/>}/>
-          <Route path="/recipe/:id" element={<Recipe />}/>
-          <Route path="/recipe/new" element={user ? <RecipeForm/> : <Navigate to="/" replace={true}/>}/>
-          <Route path="/my-recipes" element={user ? <MyRecipes/> : <Navigate to="/" replace={true}/>}/>
-          <Route path="/edit/:id" element={user ? <RecipeForm/> : <Navigate to="/" replace={true}/>}/>
-          <Route path="/organization/new" element={user ? <OrganizationForm/> : <Navigate to="/" replace={true}/>}/>
-          <Route path="/organization/:id" element={user ? <Organization/> : <Navigate to="/" replace={true}/>}/>
-        </Routes>
+        <div>
+          <NavBar />
+        </div>
+        <div className="sm:ml-64">
+          <Routes>
+            <Route path="/" element={<Home />}/>
+            <Route path="/login" element={user ? <Navigate to="/" replace={true}/> : <Login/>}/>
+            <Route path="/register" element={user ? <Navigate to="/" replace={true}/> : <Register/>}/>
+            <Route path="/saved-recipes" element={user ? <SavedRecipes/> : <Navigate to="/" replace={true}/>}/>
+            <Route path="/recipe/:id" element={<Recipe />}/>
+            <Route path="/recipe/new" element={user ? <RecipeForm/> : <Navigate to="/" replace={true}/>}/>
+            <Route path="/my-recipes" element={user ? <MyRecipes/> : <Navigate to="/" replace={true}/>}/>
+            <Route path="/edit/:id" element={user ? <RecipeForm/> : <Navigate to="/" replace={true}/>}/>
+            <Route path="/organization/new" element={user ? <OrganizationForm/> : <Navigate to="/" replace={true}/>}/>
+            <Route path="/organization/:id" element={user ? <Organization/> : <Navigate to="/" replace={true}/>}/>
+            <Route path="/organization/edit/:id" element={user ? <OrganizationForm/> : <Navigate to="/" replace={true}/>}/>
+            <Route path="/my-organizations" element={user ? <MyOrganizations/> : <Navigate to="/" replace={true}/>}/>
+          </Routes>
+        </div>
       </Router>
     </AuthContext.Provider>
   )

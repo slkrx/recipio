@@ -1,5 +1,6 @@
 package learn.backendserver.data;
 
+import learn.backendserver.TestHelpers;
 import learn.backendserver.models.OrganizationAppUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,14 @@ class OrganizationAppUserJdbcRepositoryTest {
     @Test
     void shouldCreate() {
         assertTrue(repository.create(new OrganizationAppUser(1, 3)));
+    }
+
+    @Test
+    void shouldFindByUsername() {
+        List<OrganizationAppUser> expected = List.of(new OrganizationAppUser(
+                TestHelpers.ORGANIZATION1.getId(), TestHelpers.USER2.getAppUserId()));
+        List<OrganizationAppUser> actual = repository.findByUsername(TestHelpers.USER2.getUsername());
+        assertEquals(expected, actual);
     }
 
 }

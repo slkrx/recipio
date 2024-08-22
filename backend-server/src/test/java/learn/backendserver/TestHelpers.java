@@ -1,7 +1,9 @@
 package learn.backendserver;
 
 import learn.backendserver.models.AppUser;
+import learn.backendserver.models.Organization;
 import learn.backendserver.models.Recipe;
+import org.mockito.internal.matchers.Or;
 
 import java.util.List;
 
@@ -59,5 +61,10 @@ public class TestHelpers {
             "$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",
             true,
             List.of()
+    );
+    public static Organization ORGANIZATION1 = new Organization(
+            1,
+            1,
+            "test"
     );
 }
