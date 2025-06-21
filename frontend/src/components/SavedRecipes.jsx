@@ -12,7 +12,7 @@ export default function SavedRecipes() {
 
     async function getSavedRecipes() {
         if (auth.user) {
-            const response = await fetch(`http://localhost:8080/api/app-user-recipe-saved/${auth.user.username}`)
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/app-user-recipe-saved/${auth.user.username}`)
             const data = await response.json()
             setSavedRecipes(data)
         }

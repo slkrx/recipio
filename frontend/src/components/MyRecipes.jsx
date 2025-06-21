@@ -11,13 +11,13 @@ export default function MyRecipes() {
     }, [])
 
     async function getRecipes() {
-        const response = await fetch(`http://localhost:8080/api/app-user-recipe-created/${auth.user.username}`)
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/app-user-recipe-created/${auth.user.username}`)
         const data = await response.json()
         setRecipes(data)
     }
 
     async function deleteRecipe(id) {
-        const response = await fetch(`http://localhost:8080/api/recipes/${id}`, { method: "DELETE" })
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/recipes/${id}`, { method: "DELETE" })
         if (response.ok) {
             getRecipes()
         }

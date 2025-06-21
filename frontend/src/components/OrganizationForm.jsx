@@ -14,7 +14,7 @@ export default function OrganizationForm() {
         event.preventDefault()
 
         try {
-            const response = await fetch(`http://localhost:8080/api/organizations/${id ? id : auth.user.username}`, {
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organizations/${id ? id : auth.user.username}`, {
                 method: `${id ? "PUT" : "POST"}`,
                 headers: {
                     "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function OrganizationForm() {
     }, [id])
 
     async function getOrganization() {
-        const response = await fetch(`http://localhost:8080/api/organizations/${id}`)
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organizations/${id}`)
         const data = await response.json()
         setOrganization(data)
     }

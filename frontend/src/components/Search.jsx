@@ -28,7 +28,7 @@ export default function Search() {
         if (searchParams.get("q") && searchParams.get("q")) {
             setSpinner(true)
             try {
-                const response = await fetch(`http://localhost:8080/api/recipes/search?q=${searchParams.get("q")}&p=${searchParams.get("p")}`)
+                const response = await fetch(`https://samrechsteiner.com/recipio-api/api/recipes/search?q=${searchParams.get("q")}&p=${searchParams.get("p")}`)
                 const data = await response.json()
                 console.log(data)
                 setSpinner(false)

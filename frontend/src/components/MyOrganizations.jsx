@@ -14,19 +14,19 @@ export default function MyOrganizations() {
     }, [])
 
     async function getOwnedOrganizations() {
-        const response = await fetch(`http://localhost:8080/api/organizations?username=${auth.user.username}`)
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organizations?username=${auth.user.username}`)
         const data = await response.json()
         setOwnedOrganizations(data)
     }
 
     async function getBelongedOrganizations() {
-        const response = await fetch(`http://localhost:8080/api/organization-app-user?username=${auth.user.username}`)
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organization-app-user?username=${auth.user.username}`)
         const data = await response.json()
         setBelongedOrganizations(data)
     }
 
     async function handleDelete(id) {
-        const response = await fetch(`http://localhost:8080/api/organizations/${id}`, { method: "DELETE" })
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organizations/${id}`, { method: "DELETE" })
         if (response.ok) {
             getOwnedOrganizations()
         }

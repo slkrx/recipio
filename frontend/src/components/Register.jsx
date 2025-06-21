@@ -14,7 +14,7 @@ export default function Register() {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        let response = await fetch("http://localhost:8080/security/register", {
+        let response = await fetch("https://samrechsteiner.com/recipio-api/security/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function Register() {
             return
         }
 
-        response = await fetch("http://localhost:8080/security/authenticate", {
+        response = await fetch("https://samrechsteiner.com/recipio-api/security/authenticate", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

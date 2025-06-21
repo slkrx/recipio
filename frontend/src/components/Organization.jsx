@@ -24,7 +24,7 @@ export default function Organization() {
 
     async function getRecipes() {
         try {
-            const response = await fetch(`http://localhost:8080/api/organization-recipe/${id}`)
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organization-recipe/${id}`)
             const data = await response.json()
             if (response.ok) {
                 setRecipes(data)
@@ -36,7 +36,7 @@ export default function Organization() {
 
     async function getOrganization() {
         try {
-            const response = await fetch(`http://localhost:8080/api/organizations/${id}`)
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organizations/${id}`)
             const data = await response.json()
             if (response.ok) {
                 setOrganization(data)
@@ -48,7 +48,7 @@ export default function Organization() {
 
     async function getMembers() {
         try {
-            const response = await fetch(`http://localhost:8080/api/organization-app-user/${id}`)
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organization-app-user/${id}`)
             const data = await response.json()
             if (response.ok) {
                 setMembers(data)
@@ -62,7 +62,7 @@ export default function Organization() {
         event.preventDefault()
 
         try {
-            const response = await fetch(`http://localhost:8080/api/organization-app-user`, {
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organization-app-user`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

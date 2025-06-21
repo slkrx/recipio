@@ -25,7 +25,7 @@ export default function RecipeForm() {
     }, [id])
 
     async function getRecipe() {
-        const response = await fetch(`http://localhost:8080/api/recipes/${id}`)
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/recipes/${id}`)
         const data = await response.json()
         setRecipe(data)
     }
@@ -34,7 +34,7 @@ export default function RecipeForm() {
         event.preventDefault()
 
         if (id) {
-            const response = await fetch(`http://localhost:8080/api/recipes/${id}`, {
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/recipes/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export default function RecipeForm() {
                 navigate(`/recipe/${id}`)
             }
         } else {
-            const response = await fetch(`http://localhost:8080/api/recipes/${auth.user.username}`, {
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/recipes/${auth.user.username}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

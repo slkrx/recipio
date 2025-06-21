@@ -15,7 +15,7 @@ export default function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        const response = await fetch("http://localhost:8080/security/authenticate", {
+        const response = await fetch("https://samrechsteiner.com/recipio-api/security/authenticate", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

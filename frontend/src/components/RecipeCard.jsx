@@ -12,7 +12,7 @@ export default function RecipeCard({ recipe, owned=false, deleteRecipe }) {
 
     async function getSavedRecipes() {
         if (auth.user) {
-            const response = await fetch(`http://localhost:8080/api/app-user-recipe-saved/${auth.user.username}`)
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/app-user-recipe-saved/${auth.user.username}`)
             const data = await response.json()
             setUserSavedRecipes(data)
         }
@@ -71,7 +71,7 @@ export default function RecipeCard({ recipe, owned=false, deleteRecipe }) {
     }
 
     async function saveRecipe() {
-        const response = await fetch(`http://localhost:8080/api/app-user-recipe-saved/${auth.user.username}/${recipe.id}`, {
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/app-user-recipe-saved/${auth.user.username}/${recipe.id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -83,7 +83,7 @@ export default function RecipeCard({ recipe, owned=false, deleteRecipe }) {
     }
 
     async function unsaveRecipe() {
-        const response = await fetch(`http://localhost:8080/api/app-user-recipe-saved/${auth.user.username}/${recipe.id}`, {
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/app-user-recipe-saved/${auth.user.username}/${recipe.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

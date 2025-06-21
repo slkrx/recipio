@@ -17,12 +17,12 @@ export default function Recipe() {
 
     async function getOrganizations() {
         if (auth.user) {
-            const response = await fetch(`http://localhost:8080/api/organizations?username=${auth.user.username}`)
+            const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organizations?username=${auth.user.username}`)
             const data = await response.json()
             let organizationRecipes = {}
             if (data.length > 0) {
                 for (const organization of data) {
-                    const response = await fetch(`http://localhost:8080/api/organization-recipe/${organization.id}`)
+                    const response = await fetch(`https://samrechsteiner.com/recipio-api/api/organization-recipe/${organization.id}`)
                     const data = await response.json()
                     organizationRecipes = {...organizationRecipes, [organization.id]: data.map(recipe => recipe.id)}
                 }
@@ -34,13 +34,13 @@ export default function Recipe() {
     }
 
     async function getRecipe() {
-        const response = await fetch(`http://localhost:8080/api/recipes/${id}`)
+        const response = await fetch(`https://samrechsteiner.com/recipio-api/api/recipes/${id}`)
         const data = await response.json()
         setRecipe(data)
     }
 
     async function addToOrganization(organizationId) {
-        const response = await fetch("http://localhost:8080/api/organization-recipe", {
+        const response = await fetch("https://samrechsteiner.com/recipio-api/api/organization-recipe", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

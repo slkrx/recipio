@@ -49,7 +49,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={auth}>
-      <Router>
+      <Router basename="/recipio">
         <div>
           <NavBar />
         </div>
